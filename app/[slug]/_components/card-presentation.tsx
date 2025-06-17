@@ -13,12 +13,14 @@ type CardPresentationProps = {
   card: CardsEnum;
   suit: SuitsEnum;
   slug: string;
+  showChooseAnotherCardButton?: boolean;
 };
 
 export const CardPresentation = ({
   card,
   suit,
   slug,
+  showChooseAnotherCardButton = false,
 }: CardPresentationProps): React.ReactNode => {
   useEffect(() => {
     setTimeout(() => {
@@ -80,17 +82,19 @@ export const CardPresentation = ({
               {card}
               {suit}
             </span>
-            <motion.div
-              animate={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              transition={{ duration: 1, delay: 10 }}
-            >
-              <Link href={`/${slug}/escolher-carta`}>
-                <Button color="primary" variant="flat">
-                  Escolher outra carta
-                </Button>
-              </Link>
-            </motion.div>
+            {showChooseAnotherCardButton && (
+              <motion.div
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                transition={{ duration: 1, delay: 10 }}
+              >
+                <Link href={`/${slug}/escolher-carta`}>
+                  <Button color="primary" variant="flat">
+                    Escolher outra carta
+                  </Button>
+                </Link>
+              </motion.div>
+            )}
           </div>
         </div>
       </motion.div>

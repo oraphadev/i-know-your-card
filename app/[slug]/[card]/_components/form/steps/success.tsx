@@ -10,14 +10,14 @@ type SuccessFormStepProps = {
 export const SuccessFormStep = ({
   slug,
 }: SuccessFormStepProps): React.ReactNode => {
-  const link = [window.location.origin, slug].join("/");
+  const link = `${window.location.origin}/${slug}?a=1`;
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 p-6 text-center">
       <QrCode value={link} />
       <Link
         className="text-sm text-primary underline"
-        href={`/${slug}`}
+        href={`/${slug}?a=1`}
         title="Visualizar carta escolhida"
       >
         {link}
