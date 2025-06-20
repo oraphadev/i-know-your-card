@@ -26,7 +26,10 @@ export const getCardBySlug = safeActionClient
 
       return data?.[slug] ?? null;
     } catch (error) {
-      console.error(error);
+      console.error(
+        `[getCardBySlug] Error getting card by slug: ${slug}`,
+        error,
+      );
 
       return null;
     }
