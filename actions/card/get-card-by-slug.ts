@@ -4,9 +4,9 @@ import { z } from "zod";
 
 import { safeActionClient } from "../safe-action-client";
 
-import { jsonBinService, binId } from "@/services/http/jsonbin-service";
-import { SuitsEnum } from "@/types/cards/suits-enum";
+import { binId, jsonBinService } from "@/services/http/jsonbin-service";
 import { CardsEnum } from "@/types/cards/cards-enum";
+import { SuitsEnum } from "@/types/cards/suits-enum";
 
 const getCardBySlugSchema = z.object({
   slug: z.string().min(1),
@@ -17,11 +17,17 @@ export const getCardBySlug = safeActionClient
   .action(async ({ parsedInput }) => {
     const { slug } = parsedInput;
 
-    const { data } = await jsonBinService.get<
-      Record<string, { card: CardsEnum; suit: SuitsEnum }>
-    >(`/b/${binId}`, {
-      params: { meta: false },
-    });
+    try {
+      const { data } = await jsonBinService.get<
+        Record<string, { card: CardsEnum; suit: SuitsEnum }>
+      >(`/b/${binId}`, {
+        params: { meta: false },
+      });
 
-    return data?.[slug] ?? null;
+      return data?.[slug] ?? null;
+    } catch (error) {
+      console.error(error);
+
+      return null;
+    }
   });
