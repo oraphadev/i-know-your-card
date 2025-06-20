@@ -1,12 +1,14 @@
 import axios from "axios";
 
+const baseURL = process.env.JSONBIN_API_URL;
+const apiKey = process.env.JSONBIN_API_KEY;
+const binId = process.env.JSONBIN_BIN_ID;
+
 const instance = axios.create({
-  baseURL: process.env.JSONBIN_API_URL,
+  baseURL,
   headers: {
-    "x-master-key": process.env.JSONBIN_API_KEY,
+    "x-master-key": apiKey,
   },
 });
 
-const binId = process.env.JSONBIN_BIN_ID;
-
-export { instance as jsonBinService, binId };
+export { apiKey, baseURL, binId, instance as jsonBinService };

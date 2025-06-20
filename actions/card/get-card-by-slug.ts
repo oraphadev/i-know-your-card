@@ -4,7 +4,12 @@ import { z } from "zod";
 
 import { safeActionClient } from "../safe-action-client";
 
-import { binId, jsonBinService } from "@/services/http/jsonbin-service";
+import {
+  apiKey,
+  baseURL,
+  binId,
+  jsonBinService,
+} from "@/services/http/jsonbin-service";
 import { CardsEnum } from "@/types/cards/cards-enum";
 import { SuitsEnum } from "@/types/cards/suits-enum";
 
@@ -26,10 +31,12 @@ export const getCardBySlug = safeActionClient
 
       return data?.[slug] ?? null;
     } catch (error) {
-      console.error(
-        `[getCardBySlug] Error getting card by slug: ${slug}`,
+      console.error(`[getCardBySlug] Error getting card by slug: ${slug}`, {
         error,
-      );
+        binId,
+        baseURL,
+        apiKey,
+      });
 
       return null;
     }
